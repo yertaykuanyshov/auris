@@ -12,7 +12,7 @@ class App extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.ubuntuTextTheme(),
         colorScheme: const ColorScheme.light(
-          primary: Colors.black,
+          primary: Colors.redAccent,
         ),
       ),
       home: const HomePage(),

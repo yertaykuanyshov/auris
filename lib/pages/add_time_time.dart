@@ -18,15 +18,6 @@ class AddTimePage extends StatelessWidget {
             CupertinoTimerPicker(
               onTimerDurationChanged: (_) {},
             ),
-            TextButton(
-              onPressed: () {},
-              child: const Text(
-                "Select category",
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-            ),
             const SizedBox(height: 5),
             MaterialButton(
               onPressed: () {},
