@@ -8,7 +8,7 @@ class CategoryViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Listen english"),
+        title: const Text("Listen English"),
       ),
       body: HeatMap(
         datasets: {
