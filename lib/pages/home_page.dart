@@ -3,6 +3,8 @@ import 'package:auris/pages/add_time_time.dart';
 import 'package:auris/pages/category_view_page.dart';
 import 'package:flutter/material.dart';
 
+import 'add_category_page.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -46,7 +48,7 @@ class HomePage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => context.toPage(const AddTimePage()),
+        onPressed: () => context.toPage(const AddCategoryPage()),
         label: const Text(
           "Add category",
           style: TextStyle(
