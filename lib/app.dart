@@ -10,7 +10,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         useMaterial3: true,
-        textTheme: GoogleFonts.ubuntuTextTheme(),
+        textTheme: GoogleFonts.ptSansTextTheme(),
         colorScheme: const ColorScheme.light(
           primary: Colors.red,
         ),

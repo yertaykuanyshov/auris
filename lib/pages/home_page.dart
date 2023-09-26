@@ -1,6 +1,6 @@
 import 'package:auris/extension.dart';
-import 'package:auris/pages/add_time_time.dart';
 import 'package:auris/pages/category_view_page.dart';
+import 'package:auris/services/database.dart';
 import 'package:flutter/material.dart';
 
 import 'add_category_page.dart';
@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Auris"),
+        title: const Text("Auris: Listen time tracker"),
       ),
       body: ListView.builder(
         itemBuilder: (_, idx) {
@@ -20,26 +20,37 @@ class HomePage extends StatelessWidget {
             onTap: () => context.toPage(const CategoryViewPage()),
             child: Container(
               padding: const EdgeInsets.all(18),
-              color: Colors.black.withOpacity(0.01),
+              color: Colors.black12.withAlpha(7),
               margin: const EdgeInsets.only(
                 left: 5,
                 right: 5,
                 bottom: 5,
               ),
-              child: const Row(
+              child: Row(
                 children: [
-                  Text(
-                    "Listen English",
-                    style: TextStyle(fontSize: 20),
+                  Image.network(
+                    "https://www.countryflagicons.com/FLAT/64/DE.png",
+                    fit: BoxFit.contain,
                   ),
-                  Expanded(child: SizedBox()),
-                  Text(
-                    "1d 14h 15m",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w300,
-                    ),
+                  const SizedBox(width: 20),
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Listen English",
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        "Listen time: 1d 14h 15m",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -48,9 +59,11 @@ class HomePage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => context.toPage(const AddCategoryPage()),
+        onPressed: () {
+          context.toPage(const AddCategoryPage());
+        },
         label: const Text(
-          "Add category",
+          "Add Languages",
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
