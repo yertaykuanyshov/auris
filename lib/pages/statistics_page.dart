@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 
-class CategoryViewPage extends StatelessWidget {
-  const CategoryViewPage({super.key});
+class StatisticsPage extends StatelessWidget {
+  const StatisticsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +12,8 @@ class CategoryViewPage extends StatelessWidget {
       ),
       body: HeatMap(
         datasets: {
-          DateTime(2022, 12, 7): 3450,
-          DateTime(2023, 1, 6): 10000,
+          DateTime(2022, 12, 7): 20,
+          DateTime(2023, 1, 6): 10,
         },
         colorMode: ColorMode.opacity,
         showText: false,

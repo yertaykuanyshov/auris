@@ -1,5 +1,7 @@
 import 'package:auris/models/language.dart';
 
-abstract class LanguageListRepository {
-  List<Language> getLanguages();
+abstract class LanguageRepository {
+  Future<void> add(Language language);
+
+  Future<void> delete(int id);
 }

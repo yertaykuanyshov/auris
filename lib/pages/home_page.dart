@@ -1,9 +1,8 @@
 import 'package:auris/extension.dart';
-import 'package:auris/pages/category_view_page.dart';
-import 'package:auris/services/database.dart';
+import 'package:auris/pages/statistics_page.dart';
 import 'package:flutter/material.dart';
 
-import 'add_category_page.dart';
+import 'add_language_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,7 +16,7 @@ class HomePage extends StatelessWidget {
       body: ListView.builder(
         itemBuilder: (_, idx) {
           return GestureDetector(
-            onTap: () => context.toPage(const CategoryViewPage()),
+            onTap: () => context.toPage(const StatisticsPage()),
             child: Container(
               padding: const EdgeInsets.all(18),
               color: Colors.black12.withAlpha(7),
@@ -59,9 +58,7 @@ class HomePage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          context.toPage(const AddCategoryPage());
-        },
+        onPressed: () => context.toPage(const AddLanguagePage()),
         label: const Text(
           "Add Languages",
           style: TextStyle(
