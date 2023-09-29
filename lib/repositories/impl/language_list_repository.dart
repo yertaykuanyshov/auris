@@ -1,5 +1,7 @@
-import 'package:auris/models/language.dart';
+import 'package:auris/services/database.dart';
 
 abstract class LanguageListRepository {
-  List<Language> getLanguages();
+  List<LanguageData> getLanguages();
+
+  Future<List<LanguageData>> getListeningLanguages();
 }

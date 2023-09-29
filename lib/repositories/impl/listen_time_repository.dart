@@ -1,7 +1,5 @@
-import 'package:auris/models/listen_time.dart';
-
 abstract class ListenTimeRepository {
-  Future<void> add(ListenTime listenTime);
+  Future<void> add();
 
-  Future<List<ListenTime>> getListenTimes();
+  Future<void> getListenTimes();
 }

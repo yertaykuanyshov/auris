@@ -1,7 +1,7 @@
-import 'package:auris/models/language.dart';
+import 'package:auris/services/database.dart';
 
 abstract class LanguageRepository {
-  Future<void> add(Language language);
+  Future<void> add(LanguageData language);
 
   Future<void> delete(int id);
 }

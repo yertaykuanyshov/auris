@@ -1,16 +1,20 @@
-import 'package:auris/models/language.dart';
 import 'package:auris/repositories/impl/language_list_repository.dart';
+import 'package:auris/services/database.dart';
 
 class LanguageListRepositoryImpl extends LanguageListRepository {
+  final AppDatabase _appDatabase;
+
+  LanguageListRepositoryImpl(this._appDatabase);
+
   @override
-  List<Language> getLanguages() {
+  List<LanguageData> getLanguages() {
     return [
-      Language(name: "italiana", langCode: 'it'),
-      Language(name: "español", langCode: 'es'),
-      Language(name: "English", langCode: 'en'),
-      Language(name: "China", langCode: 'ch'),
-      Language(name: "Japan", langCode: 'jp'),
-      Language(name: "Русский", langCode: 'ru'),
+      const LanguageData(id: 1, langCode: "KK"),
     ];
+  }
+
+  @override
+  Future<List<LanguageData>> getListeningLanguages() async {
+    return await _appDatabase.select(_appDatabase.language).get();
   }
 }
