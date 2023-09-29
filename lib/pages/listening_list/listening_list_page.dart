@@ -1,13 +1,11 @@
 import 'package:auris/blocs/language_bloc.dart';
-import 'package:auris/blocs/language_list_bloc.dart';
 import 'package:auris/blocs/language_state.dart';
 import 'package:auris/extension.dart';
-import 'package:auris/pages/statistics_page.dart';
-import 'package:auris/services/database.dart';
+import 'package:auris/pages/listen_history/statistics_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../add_language_page.dart';
+import '../add_language/add_language_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

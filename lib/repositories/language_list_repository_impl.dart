@@ -10,6 +10,9 @@ class LanguageListRepositoryImpl extends LanguageListRepository {
   List<LanguageData> getLanguages() {
     return [
       const LanguageData(id: 1, name: "español", langCode: "ES"),
+      const LanguageData(id: 2, name: "English", langCode: "US"),
+      const LanguageData(id: 3, name: "Arabic", langCode: "SA"),
+      const LanguageData(id: 4, name: "French", langCode: "FR"),
     ];
   }
 
