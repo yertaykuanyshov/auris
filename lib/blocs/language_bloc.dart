@@ -13,11 +13,13 @@ class LanguageBloc extends Cubit<ListenLanguageState> {
   final LanguageRepository _languageRepository;
   final LanguageListRepository _languageListRepository;
 
-  void getListeningLanguages() {
-    _languageListRepository.getListeningLanguages();
+  void getListeningLanguages() async {
+    final languageList = await _languageListRepository.getListeningLanguages();
+
+    emit(ListenLanguageLoaded(languageList));
   }
 
-  void addLanguage(LanguageData language) async {
-    await _languageRepository.add(language);
+  void addLanguage(String langCode) async {
+    await _languageRepository.add(langCode);
   }
 }

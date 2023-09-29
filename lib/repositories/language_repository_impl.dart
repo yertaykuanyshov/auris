@@ -8,11 +8,9 @@ class LanguageRepositoryImpl extends LanguageRepository {
   LanguageRepositoryImpl(this._appDatabase);
 
   @override
-  Future<void> add(LanguageData language) async {
+  Future<void> add(String langCode) async {
     await _appDatabase.into(_appDatabase.language).insert(
-          LanguageCompanion.insert(
-            langCode: "",
-          ),
+          LanguageCompanion.insert(langCode: langCode),
         );
   }
 

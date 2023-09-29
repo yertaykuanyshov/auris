@@ -5,23 +5,10 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../models/language.dart';
+import '../models/listen_history.dart';
+
 part 'database.g.dart';
-
-class Language extends Table {
-  IntColumn get id => integer().autoIncrement()();
-
-  TextColumn get langCode => text()();
-}
-
-class ListenHistory extends Table {
-  IntColumn get id => integer().autoIncrement()();
-
-  IntColumn get second => integer()();
-
-  IntColumn get languageId => integer()();
-
-  DateTimeColumn get date => dateTime()();
-}
 
 @DriftDatabase(tables: [Language, ListenHistory])
 class AppDatabase extends _$AppDatabase {
@@ -34,7 +21,7 @@ class AppDatabase extends _$AppDatabase {
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(join(dbFolder.path, 'db.sqlite'));
+    final file = File(join(dbFolder.path, 'auris.sqlite'));
     return NativeDatabase.createInBackground(file);
   });
 }

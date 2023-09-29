@@ -18,6 +18,11 @@ class $LanguageTable extends Language
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _langCodeMeta =
       const VerificationMeta('langCode');
   @override
@@ -25,7 +30,7 @@ class $LanguageTable extends Language
       'lang_code', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, langCode];
+  List<GeneratedColumn> get $columns => [id, name, langCode];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -38,6 +43,10 @@ class $LanguageTable extends Language
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     }
     if (data.containsKey('lang_code')) {
       context.handle(_langCodeMeta,
@@ -56,6 +65,8 @@ class $LanguageTable extends Language
     return LanguageData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name']),
       langCode: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}lang_code'])!,
     );
@@ -69,12 +80,16 @@ class $LanguageTable extends Language
 
 class LanguageData extends DataClass implements Insertable<LanguageData> {
   final int id;
+  final String? name;
   final String langCode;
-  const LanguageData({required this.id, required this.langCode});
+  const LanguageData({required this.id, this.name, required this.langCode});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    if (!nullToAbsent || name != null) {
+      map['name'] = Variable<String>(name);
+    }
     map['lang_code'] = Variable<String>(langCode);
     return map;
   }
@@ -82,6 +97,7 @@ class LanguageData extends DataClass implements Insertable<LanguageData> {
   LanguageCompanion toCompanion(bool nullToAbsent) {
     return LanguageCompanion(
       id: Value(id),
+      name: name == null && nullToAbsent ? const Value.absent() : Value(name),
       langCode: Value(langCode),
     );
   }
@@ -91,6 +107,7 @@ class LanguageData extends DataClass implements Insertable<LanguageData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return LanguageData(
       id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String?>(json['name']),
       langCode: serializer.fromJson<String>(json['langCode']),
     );
   }
@@ -99,57 +116,72 @@ class LanguageData extends DataClass implements Insertable<LanguageData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String?>(name),
       'langCode': serializer.toJson<String>(langCode),
     };
   }
 
-  LanguageData copyWith({int? id, String? langCode}) => LanguageData(
+  LanguageData copyWith(
+          {int? id,
+          Value<String?> name = const Value.absent(),
+          String? langCode}) =>
+      LanguageData(
         id: id ?? this.id,
+        name: name.present ? name.value : this.name,
         langCode: langCode ?? this.langCode,
       );
   @override
   String toString() {
     return (StringBuffer('LanguageData(')
           ..write('id: $id, ')
+          ..write('name: $name, ')
           ..write('langCode: $langCode')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, langCode);
+  int get hashCode => Object.hash(id, name, langCode);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is LanguageData &&
           other.id == this.id &&
+          other.name == this.name &&
           other.langCode == this.langCode);
 }
 
 class LanguageCompanion extends UpdateCompanion<LanguageData> {
   final Value<int> id;
+  final Value<String?> name;
   final Value<String> langCode;
   const LanguageCompanion({
     this.id = const Value.absent(),
+    this.name = const Value.absent(),
     this.langCode = const Value.absent(),
   });
   LanguageCompanion.insert({
     this.id = const Value.absent(),
+    this.name = const Value.absent(),
     required String langCode,
   }) : langCode = Value(langCode);
   static Insertable<LanguageData> custom({
     Expression<int>? id,
+    Expression<String>? name,
     Expression<String>? langCode,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (name != null) 'name': name,
       if (langCode != null) 'lang_code': langCode,
     });
   }
 
-  LanguageCompanion copyWith({Value<int>? id, Value<String>? langCode}) {
+  LanguageCompanion copyWith(
+      {Value<int>? id, Value<String?>? name, Value<String>? langCode}) {
     return LanguageCompanion(
       id: id ?? this.id,
+      name: name ?? this.name,
       langCode: langCode ?? this.langCode,
     );
   }
@@ -159,6 +191,9 @@ class LanguageCompanion extends UpdateCompanion<LanguageData> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
     }
     if (langCode.present) {
       map['lang_code'] = Variable<String>(langCode.value);
@@ -170,6 +205,7 @@ class LanguageCompanion extends UpdateCompanion<LanguageData> {
   String toString() {
     return (StringBuffer('LanguageCompanion(')
           ..write('id: $id, ')
+          ..write('name: $name, ')
           ..write('langCode: $langCode')
           ..write(')'))
         .toString();
@@ -201,12 +237,17 @@ class $ListenHistoryTable extends ListenHistory
   @override
   late final GeneratedColumn<int> languageId = GeneratedColumn<int>(
       'language_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES language (id)'));
   static const VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
   late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
       'date', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      clientDefault: () => DateTime.now());
   @override
   List<GeneratedColumn> get $columns => [id, second, languageId, date];
   @override
@@ -239,8 +280,6 @@ class $ListenHistoryTable extends ListenHistory
     if (data.containsKey('date')) {
       context.handle(
           _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
-    } else if (isInserting) {
-      context.missing(_dateMeta);
     }
     return context;
   }
@@ -365,10 +404,9 @@ class ListenHistoryCompanion extends UpdateCompanion<ListenHistoryData> {
     this.id = const Value.absent(),
     required int second,
     required int languageId,
-    required DateTime date,
+    this.date = const Value.absent(),
   })  : second = Value(second),
-        languageId = Value(languageId),
-        date = Value(date);
+        languageId = Value(languageId);
   static Insertable<ListenHistoryData> custom({
     Expression<int>? id,
     Expression<int>? second,

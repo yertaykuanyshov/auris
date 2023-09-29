@@ -5,6 +5,7 @@ import 'package:auris/repositories/language_repository_impl.dart';
 import 'package:auris/repositories/listen_time_repository_impl.dart';
 import 'package:auris/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'app.dart';
 
@@ -21,5 +22,16 @@ void main() {
 
   final languageListBloc = LanguageListBloc(languageListRepository);
 
-  runApp(const App());
+  runApp(
+    RepositoryProvider(
+      create: (_) => languageListRepository,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => languageBloc),
+          BlocProvider(create: (_) => languageListBloc),
+        ],
+        child: const App(),
+      ),
+    ),
+  );
 }
