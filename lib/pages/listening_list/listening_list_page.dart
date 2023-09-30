@@ -1,14 +1,15 @@
 import 'package:auris/blocs/language_bloc.dart';
-import 'package:auris/blocs/language_state.dart';
+import 'package:auris/blocs/states/language_state.dart';
 import 'package:auris/extension.dart';
 import 'package:auris/pages/listen_history/statistics_page.dart';
+import 'package:auris/pages/listening_list/widgets/no_languages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../add_language/add_language_page.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ListenLanguagesPage extends StatelessWidget {
+  const ListenLanguagesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,24 +24,7 @@ class HomePage extends StatelessWidget {
             final languages = state.languages;
 
             if (languages.isEmpty) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "No languages",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 22,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text("Add languages"),
-                    ),
-                  ],
-                ),
-              );
+              return const NoLanguages();
             }
 
             return ListView.builder(
@@ -51,15 +35,20 @@ class HomePage extends StatelessWidget {
                 return GestureDetector(
                   onTap: () => context.toPage(const StatisticsPage()),
                   child: Container(
-                    padding: const EdgeInsets.all(18),
+                    padding: const EdgeInsets.all(10),
                     color: Colors.black12.withAlpha(7),
-                    margin: const EdgeInsets.only(
-                      left: 5,
-                      right: 5,
-                      bottom: 5,
-                    ),
+                    margin: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
                     child: Row(
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: Image.network(
+                            "https://www.countryflagicons.com/FLAT/64/${language.langCode}.png",
+                            filterQuality: FilterQuality.high,
+                            width: 60,
+                            height: 60,
+                          ),
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

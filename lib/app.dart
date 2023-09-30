@@ -16,7 +16,7 @@ class App extends StatelessWidget {
           primary: Colors.red,
         ),
       ),
-      home: const HomePage(),
+      home: const ListenLanguagesPage(),
     );
   }
 }

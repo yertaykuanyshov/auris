@@ -1,5 +1,6 @@
 import 'package:auris/repositories/impl/language_list_repository.dart';
 import 'package:auris/services/database.dart';
+import 'package:drift/drift.dart';
 
 class LanguageListRepositoryImpl extends LanguageListRepository {
   LanguageListRepositoryImpl(this._appDatabase);
@@ -18,6 +19,19 @@ class LanguageListRepositoryImpl extends LanguageListRepository {
 
   @override
   Future<List<LanguageData>> getListeningLanguages() async {
-    return await _appDatabase.select(_appDatabase.language).get();
+    final savedLanguages =
+        await _appDatabase.select(_appDatabase.language).get();
+
+    return savedLanguages
+        .map((e) => e.copyWith(name: Value(getLangName(e.langCode))))
+        .toList()
+      ..sort((a, b) => b.id.compareTo(a.id));
+  }
+
+  String getLangName(String langCode) {
+    return getLanguages()
+            .firstWhere((lang) => lang.langCode == langCode)
+            .name ??
+        "";
   }
 }

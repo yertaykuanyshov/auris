@@ -9,4 +9,14 @@ extension ContextExt on BuildContext {
       ),
     );
   }
+
+  toPageRemoveUntil(page) {
+    Navigator.pushAndRemoveUntil(
+      this,
+      MaterialPageRoute(
+        builder: (_) => page,
+      ),
+      (_) => false,
+    );
+  }
 }

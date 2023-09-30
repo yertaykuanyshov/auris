@@ -1,4 +1,4 @@
-import 'package:auris/blocs/language_state.dart';
+import 'package:auris/blocs/states/language_state.dart';
 import 'package:auris/repositories/impl/language_list_repository.dart';
 import 'package:auris/repositories/impl/language_repository.dart';
 import 'package:auris/services/database.dart';
@@ -13,13 +13,14 @@ class LanguageBloc extends Cubit<ListenLanguageState> {
   final LanguageRepository _languageRepository;
   final LanguageListRepository _languageListRepository;
 
+  void addLanguage(String langCode) async {
+    await _languageRepository.add(langCode);
+    getListeningLanguages();
+  }
+
   void getListeningLanguages() async {
     final languageList = await _languageListRepository.getListeningLanguages();
 
     emit(ListenLanguageLoaded(languageList));
-  }
-
-  void addLanguage(String langCode) async {
-    await _languageRepository.add(langCode);
   }
 }
