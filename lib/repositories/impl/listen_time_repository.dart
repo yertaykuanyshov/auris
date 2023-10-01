@@ -1,5 +1,7 @@
-abstract class ListenTimeRepository {
-  Future<void> add();
+import 'package:auris/services/database.dart';
 
-  Future<void> getListenTimes();
+abstract class ListenTimeRepository {
+  Future<void> add(ListenHistoryData listenTime);
+
+  Future<List<ListenHistoryData>> getListenTimes();
 }

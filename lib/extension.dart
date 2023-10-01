@@ -10,6 +10,10 @@ extension ContextExt on BuildContext {
     );
   }
 
+  getFlagUrl(String langCode) {
+    return "https://www.countryflagicons.com/FLAT/64/$langCode.png";
+  }
+
   toPageRemoveUntil(page) {
     Navigator.pushAndRemoveUntil(
       this,

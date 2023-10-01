@@ -16,7 +16,7 @@ class LangItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Image.network(
-        "https://www.countryflagicons.com/FLAT/64/${language.langCode}.png",
+        context.getFlagUrl(language.langCode),
       ),
       title: Text(
         language.name ?? "",
@@ -42,7 +42,7 @@ class LangItem extends StatelessWidget {
                   },
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.of(context).pop(),
                   child: const Text("No"),
                 ),
               ],
