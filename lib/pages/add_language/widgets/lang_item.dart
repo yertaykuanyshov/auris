@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/language_bloc.dart';
-import '../../listening_list/listening_list_page.dart';
+import '../../languages_list/listening_list_page.dart';
 
 class LangItem extends StatelessWidget {
   const LangItem({super.key, required this.language});

@@ -1,4 +1,4 @@
-import 'package:auris/pages/listening_list/listening_list_page.dart';
+import 'package:auris/pages/languages_list/listening_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
