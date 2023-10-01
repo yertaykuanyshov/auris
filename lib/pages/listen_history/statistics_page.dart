@@ -15,25 +15,58 @@ class StatisticsPage extends StatelessWidget {
           IconButton(
             icon: const Icon(FontAwesomeIcons.plus),
             onPressed: () {
-              showModalBottomSheet(context: context, builder: (_){
-                return const AddListenTime();
-              });
+              showModalBottomSheet(
+                  context: context,
+                  builder: (_) {
+                    return const AddListenTime();
+                  });
             },
           ),
         ],
       ),
-      body: HeatMap(
-        datasets: {
-          DateTime(2022, 12, 7): 20,
-          DateTime(2023, 1, 6): 10,
-        },
-        colorMode: ColorMode.opacity,
-        showText: false,
-        showColorTip: false,
-        scrollable: true,
-        colorsets: const {
-          1: Colors.green,
-        },
+      body: Column(
+        children: [
+          HeatMap(
+            datasets: {
+              DateTime(2022, 12, 7): 20,
+              DateTime(2023, 1, 6): 10,
+            },
+            colorMode: ColorMode.opacity,
+            showText: false,
+            showColorTip: false,
+            scrollable: true,
+            colorsets: const {
+              1: Colors.blue,
+            },
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (_, idx) {
+                return ListTile(
+                  title: const Text(
+                    "3h 12m 6s",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  subtitle: const Text(
+                    "2024-01-10",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      FontAwesomeIcons.solidPenToSquare,
+                      color: Colors.black54,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
