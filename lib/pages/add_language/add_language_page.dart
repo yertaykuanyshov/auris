@@ -1,5 +1,5 @@
 import 'package:auris/pages/add_language/widgets/lang_item.dart';
-import 'package:auris/repositories/language_list_repository_impl.dart';
+import 'package:auris/repositories/language_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,8 +8,7 @@ class AddLanguagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final languages = context.read<LanguageListRepositoryImpl>().getLanguages();
+    final languages = context.read<LanguageRepositoryImpl>().getAllLanguages();
 
     return Scaffold(
       appBar: AppBar(

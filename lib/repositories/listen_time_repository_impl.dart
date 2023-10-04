@@ -1,6 +1,8 @@
+import 'dart:math';
+
 import 'package:auris/services/database.dart';
 
-import 'impl/listen_time_repository.dart';
+import 'interface/listen_time_repository.dart';
 
 class ListenTimeRepositoryImpl extends ListenTimeRepository {
   ListenTimeRepositoryImpl(this._appDatabase);
@@ -8,13 +10,26 @@ class ListenTimeRepositoryImpl extends ListenTimeRepository {
   final AppDatabase _appDatabase;
 
   @override
-  Future<void> add(ListenHistoryData listenTime) {
-    // TODO: implement add
-    throw UnimplementedError();
+  Future<void> add({
+    required int secondCount,
+    required int languageId,
+  }) async {
+    _appDatabase.into(_appDatabase.listenHistory).insert(
+          ListenHistoryCompanion.insert(
+            second: Random.secure().nextInt(1000),
+            languageId: 1,
+          ),
+        );
   }
 
   @override
-  Future<List<ListenHistoryData>> getListenTimes() async {
-    return _appDatabase.select(_appDatabase.listenHistory).get();
+  Future<Map<DateTime, int>> getListenTimes(int languageId) async {
+    final listenTimes =
+        await _appDatabase.select(_appDatabase.listenHistory).get();
+
+    return {
+      for (var v in listenTimes)
+        DateTime(v.date.year, v.date.month, v.date.day): v.second
+    };
   }
 }

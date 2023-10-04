@@ -7,5 +7,5 @@ class Loading extends ListenTimeState {}
 class Loaded extends ListenTimeState {
   Loaded(this.listenTimes);
 
-  final List<ListenHistoryData> listenTimes;
+  final Map<DateTime, int> listenTimes;
 }
