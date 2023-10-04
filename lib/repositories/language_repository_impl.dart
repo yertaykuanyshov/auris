@@ -37,16 +37,20 @@ class LanguageRepositoryImpl extends LanguageRepository {
   }
 
   @override
-  Future<void> delete(int languageId) async {
-    _appDatabase
-        .delete(_appDatabase.language)
-        .where((tbl) => tbl.id.isValue(languageId));
+  Future<int> delete(int languageId) async {
+    return await (_appDatabase.delete(_appDatabase.language)
+          ..where((table) => table.id.equals(languageId)))
+        .go();
   }
 
   String getLangName(String langCode) {
-    return getAllLanguages()
-            .firstWhere((lang) => lang.langCode == langCode)
-            .name ??
-        "";
+    try {
+      return getAllLanguages()
+              .firstWhere((lang) => lang.langCode == langCode)
+              .name ??
+          "";
+    } catch (e) {
+      return "";
+    }
   }
 }

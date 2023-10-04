@@ -1,5 +1,4 @@
 import 'package:auris/blocs/language_bloc.dart';
-import 'package:auris/blocs/language_list_bloc.dart';
 import 'package:auris/blocs/listen_time_bloc.dart';
 import 'package:auris/repositories/language_repository_impl.dart';
 import 'package:auris/repositories/listen_time_repository_impl.dart';
@@ -13,13 +12,11 @@ import 'app.dart';
 final logger = Logger();
 
 void main() {
+
   final appDatabase = AppDatabase();
   final languageRepository = LanguageRepositoryImpl(appDatabase);
   final listenTimeRepository = ListenTimeRepositoryImpl(appDatabase);
-
   final languageBloc = LanguageBloc(languageRepository);
-
-  final languageListBloc = LanguageListBloc(languageRepository);
   final listenTimeBloc = ListenTimeBloc(listenTimeRepository);
 
   runApp(
@@ -28,7 +25,6 @@ void main() {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => languageBloc),
-          BlocProvider(create: (_) => languageListBloc),
           BlocProvider(create: (_) => listenTimeBloc),
         ],
         child: const App(),

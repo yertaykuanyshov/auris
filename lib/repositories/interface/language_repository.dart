@@ -7,5 +7,5 @@ abstract class LanguageRepository {
 
   Future<void> add(String langCode);
 
-  Future<void> delete(int languageId);
+  Future<int> delete(int languageId);
 }
