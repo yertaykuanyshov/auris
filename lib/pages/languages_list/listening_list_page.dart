@@ -1,6 +1,6 @@
 import 'package:auris/blocs/language_bloc.dart';
 import 'package:auris/blocs/states/language_state.dart';
-import 'package:auris/extension.dart';
+import 'package:auris/extensions/context.dart';
 import 'package:auris/pages/languages_list/widgets/no_languages.dart';
 import 'package:auris/pages/listen_history/statistics_page.dart';
 import 'package:flutter/material.dart';

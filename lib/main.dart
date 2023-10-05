@@ -12,7 +12,6 @@ import 'app.dart';
 final logger = Logger();
 
 void main() {
-
   final appDatabase = AppDatabase();
   final languageRepository = LanguageRepositoryImpl(appDatabase);
   final listenTimeRepository = ListenTimeRepositoryImpl(appDatabase);
