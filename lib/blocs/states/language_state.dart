@@ -1,13 +1,19 @@
+import 'package:equatable/equatable.dart';
+
 import '../../services/database.dart';
 
-abstract class ListenLanguageState {}
+abstract class LanguageState extends Equatable {}
 
-class LanguageAdded extends ListenLanguageState {}
+class Loading extends LanguageState {
+  @override
+  List<Object?> get props => [];
+}
 
-class Loading extends ListenLanguageState {}
-
-class ListenLanguageLoaded extends ListenLanguageState {
+class ListenLanguageLoaded extends LanguageState {
   ListenLanguageLoaded(this.languages);
 
   final List<LanguageData> languages;
+
+  @override
+  List<Object?> get props => [languages];
 }
